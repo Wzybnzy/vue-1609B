@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="./let.html" method="GET">
+        <input type="text" name="user">
+        <input type="password" name="password">
+        <select name="sex" value="女">
+            <option value="女">女</option>
+            <option value="男">男</option>
+        </select>
+        <div></div>
+        <div id="btn">提交</div>
+    </form>
+    <script>
+        // function sum(tit='求和',...n){
+        //     // console.log(n);
+        //     return tit + n.reduce(function(prev,next){
+        //         return prev * next
+        //     })
+        // }       
+
+        // console.log(sum(10,20,25,23,34));
+        var users = [{
+            user:'zs',
+            pwd:1234,
+            sex:'男'
+        },{
+            user:'ww',
+            pwd:1234,
+            sex:'男'
+        }]
+        btn.onclick = function(){
+            let form = document.querySelector('form');
+            let input = Array.from(form.elements);
+            let mes = {};
+            input.forEach(function(item){
+                mes[item.name] = item.value
+            })
+            let res = users.find(function(item){
+                return item.user === mes.user && item.pwd == mes.password
+            })
+            if(res){
+                alert('恭喜'+res.user+'登陆成功')
+            }else{
+                alert('失败');
+            }
+        }
+
+        let arr = [10,20,30,{name:"zs"}];
+        let arr2 = arr.slice();
+        let arr3 = [].concat(arr);
+        let arr4 = [...arr];
+        arr4[3].age = 10;
+        // arr3[3].age = 10;
+        console.log(arr4[3],arr[3]);
+
+
+        
+        // let arr5 = Array.of(10);
+        // console.log(Array(10))
+        // console.log(arr5);
+
+
+        //map
+        //filter
+        //some
+        //every
+        //forEach
+        //reduce
+        //reduceRight
+
+        // let title = ['a','b','c','d'];
+
+
+        // let user = [{
+        //     title:'今日头条'
+        // },{
+        //     title:'网易新闻'
+        // }];
+
+        // console.log(user.find(function(item){
+        //     console.log(this);
+        //     return item.title === '今日头条'
+        // },{}));
+
+
+
+    </script>
+</body>
+</html>

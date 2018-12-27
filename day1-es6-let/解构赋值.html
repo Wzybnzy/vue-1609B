@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <div class="wrap"></div>
+    <div class="wrap"></div> -->
+
+    <form id="form">
+        <input type="text" placeholder="请输入html">
+        <input type="text" placeholder="请输入css">
+    </form>
+    <script>
+        // let a = 10;
+        // let b = 20;
+        // let c = 30;
+        // console.log(a,b,c);
+        //{
+            // let [a,b,[c,d]] = [10,{
+            //     name:'zs'
+            // },[30,40]];
+            // console.log(a,b,c,d)
+        //}
+        // let [div1,div2] = [...document.querySelectorAll('.wrap')]; //[wrap,wrap]
+        // console.log(div1,div2);
+
+        // let [user,pwd] = [...document.querySelectorAll('#form input')]
+        // console.log(user,pwd);
+
+        // let [a,b,...c] = [10,20,30,40,50]
+        // console.log(a,b,c);
+
+        // let [url,type='get',ck] = ['/getdata','post',function(){
+
+        // }]
+
+        // let {
+        //     a:str
+        // } = {
+        //     a:'bawei'
+        // }
+        // console.log(str);
+
+        // let name = 'zs';
+
+        // let obj = {
+        //     name
+        // }
+        // console.log(obj);
+
+        // let {
+        //     name="zs",age,sex
+        // } = {
+        //     name:undefined,
+        //     age:13,
+        //     sex:'男'
+        // }
+        // console.log(name,age,sex);
+
+        // let a = 10;
+        // let b = 20;
+        // [a,b] = [b,a];
+        // console.log(a,b);
+
+        //<div class="wrap" style=""><p>hello</p></div>
+        function createElement(obj){
+            //tagName props children classname
+            let {tagName,props,children} = obj;
+            let el = document.createElement(tagName);
+            if(props){
+                for(let key in props){
+                    el.setAttribute(key,props[key])
+                }
+            }
+            if(typeof children === 'object'){
+                el.appendChild(createElement(children));
+            }else{
+                el.innerHTML = children;
+            }
+            return el;
+        }
+        console.log(createElement({
+            tagName:'div',
+            props:{
+                class:'wrap',
+                style:"width:100px;heigth:200px;background:red"
+            },
+            children:{
+                tagName:'p',
+                children:"hello"
+            }
+        }));
+
+        // let name = 'zs';
+        // let obj = {
+        //     name,
+        //     say(){
+        //         alert(this.name)
+        //     }
+        // } 
+        // obj.say();
+
+        // let obj = {
+        //     name:'name',
+        //     say:function(){
+        //         alert(this.name)
+        //     }
+        // }
+        
+        
+
+    </script>
+</body>
+</html>

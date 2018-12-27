@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        function loadImg(obj){
+           return new Promise((resolve,reject)=>{
+                let imgobj = new Image();
+                imgobj.onload = ()=>{
+                    resolve(imgobj)
+                };
+                imgobj.onerror = ()=>{
+                    reject(new Error('img url is not'+obj.url));
+                };
+                imgobj.src = obj.url;
+                imgobj.title = obj.title;
+           })
+        }
+
+        loadImg({
+            title:"1609B",
+            url:"http://172.16.10.119:8080/bwie/images/image/banner4.png11",
+        }).then((img)=>{
+            document.body.append(img);
+        }).catch((data)=>{
+            console.log(data);
+        })
+
+
+        //Promise.prototype.catch 捕捉异常
+
+
+        function PromiseA(func){
+            this.ck = func;
+        }
+        PromiseA.prototype.then = function(resolve,reject){
+            this.ck(resolve,reject);
+        }
+
+        new PromiseA((resolve,reject)=>{
+            setTimeout(() => {
+                resolve('abc')
+            }, 100);
+        }).then((str)=>{
+            console.log(str);
+            //resolve
+        },()=>{
+
+        })
+
+    </script>
+</body>
+</html>

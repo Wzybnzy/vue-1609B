@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let obj = {
+            name:"zs",
+            age:13,
+            sex:0
+        }
+
+        let obj1 = {
+            name:"ww",
+            age:15,
+            friend:['xm','xh','xl'],
+            say:function(){
+
+            }
+        }  
+        // console.log(obj1.toString());
+        // for(let key in obj1){
+        //     console.log(key);
+        // }
+        //{name:"ww",age:15,sex:0,friend:['xm','xh','xl']}
+
+        function extend(o,...arr){
+            arr.forEach(function(item){
+                for(let key in item){
+                    o[key] = item[key];
+                }
+            });
+            return o;
+        }
+       console.log(extend({},obj,obj1));
+
+        console.log(Object.assign({},obj,obj1));
+
+        
+        
+        // Object.defineProperty(obj1,'name',{
+        //     get(){
+        //         return "bawei"
+        //     },
+        //     set(val){
+        //         if(val>5){
+        //             alert('比5大');
+        //         }
+        //     }
+        // })
+        // alert(obj1.name);
+        // obj1.name = 10
+
+        // console.log();
+        for(let a of Object.keys(obj1)){
+            console.log(a);
+        }
+
+        console.log(Object.values(obj1));
+        console.log(Object.entries(obj1));
+
+
+        console.log(Object.is(NaN,NaN));
+
+        Object.setPrototypeOf(obj1,{aa:1});
+        
+
+        //alert(obj1.__proto__ === obj1.constructor.prototype)
+
+
+        function includeArr(oldarr,conf){
+            conf.forEach(function(item){
+               oldarr[item.index] = [item.content,oldarr[item.index]];
+            })
+            console.log(oldarr.flat());
+        }
+
+        includeArr(['a','b','c','d'],[{
+            content:"item1",
+            index:3
+        },{
+            content:"item4",
+            index:0
+        }])
+        //['item4',a','b','c','item1','d']
+
+        function arr(length,cont){
+           // return Array(length).fill(cont);
+           return Array.from({length},function(){
+               return cont;
+           })
+        }
+        console.log(arr(10,'aa'));
+    </script>
+</body>
+</html>

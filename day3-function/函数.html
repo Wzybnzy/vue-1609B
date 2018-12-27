@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let count = 0;
+        const obj = {
+            count:10,
+            add(){
+                let setCount = function(){
+                    this.count = 20;
+                    console.log(this);
+                    console.log(this.count);
+                }
+                // this
+                let setCount1 = () => {
+                    this.count = 30;
+                    console.log(this);
+                    console.log(this.count);
+                }
+                setCount();
+                setCount1();
+            }
+        }
+        obj.add(); //方法调用 this指向该对象
+
+
+        //箭头函数和普通函数的区别
+        //this指向不同，箭头函数this指向始终指向定义该的对象
+        //箭头函数不能当作构造函数使用
+        //箭头函数不能使用arguments
+        
+        //通过new 关键字来调用的函数叫构造函数
+        //1. 调用该函数
+        //2. 修改该函数的this指向，指向实例对象
+        //3. 返回实例对象
+
+        function A(){
+           console.log(arguments);
+        }
+        // console.log(new A());
+        console.log(A(10,20,30));
+
+        let fun1 = (...arr)=>{
+            // return arr.reduce((prev,next)=>{
+            //     console.log(prev);
+            //     return prev + next
+            // })
+             let sum = arr.reduce((prev,next)=> prev+next );
+             return sum;
+        }
+
+        console.log(fun1(10,20,30,40));
+    
+        let arr = [10,30,50]; //[20,40,60]
+        console.log(arr.map(item => item+10));
+    </script>
+</body>
+</html>

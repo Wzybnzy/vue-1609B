@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let timer = (n) => {
+            return new Promise((resolve,reject)=>{
+                //resolve 成功
+                //reject 失败
+                setTimeout(()=>{
+                    resolve('red');
+                },n)
+            });
+            // return promise;
+        }
+
+        timer(50).then((col)=>{
+            document.body.style.background = col;
+            //resolve
+        },()=>{
+            //reject
+        })
+
+        //promise 对象有这三种状态
+        //pending 正在加载
+        //fulfilled 成功
+        //rejeced 失败
+        //pending -> fulfilled
+        //pending -> rejeced
+
+        //缺点外部无法控制内部的运行状态
+
+    </script>
+</body>
+</html>

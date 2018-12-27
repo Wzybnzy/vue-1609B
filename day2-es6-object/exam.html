@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrap">
+        <div>
+            <div class="title"></div>
+        </div>
+        <p>
+            <span>
+                <b></b>
+            </span>
+        </p>
+    </div>
+    <script>
+        function find(parent=document.body,child=null){
+            let res = [];
+            function getDom(parent){
+                let childEl = Array.from(parent.children);
+                childEl.forEach(function(item){
+                    res.push(item);
+                    getDom(item);
+                })
+            }
+            getDom(parent);
+            return res;
+        }
+        console.log(find(document.querySelector('.wrap')));
+        // console.log(res);
+    
+    </script>
+</body>
+</html>
