@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding:0;
+            margin: 0;
+            list-style: none;
+        }
+        .dialog{
+            width: 400px;
+            height: 200px;
+            position: absolute;
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        
+
+        let Dialog = class {
+            constructor(settings){
+                this.settings = settings;
+                this.init();
+            }
+            init(){
+                this.createDialog();
+                this.addEvent();
+            }
+            createDialog(){
+                this.dialogParent = document.createElement('div');
+                this.dialogParent.classList.add('dialog');
+                let {title,btns} = this.settings;
+                this.dialogParent.innerHTML = `
+                    <h2>${title}</h2>
+                    <div class="btns">${btns.map((text,index)=>`<button class="btn${index}">${text}</button>`).join('')}</div>
+                `
+                document.body.append(this.dialogParent);
+            }
+            addEvent(){
+                let btns = Array.from(this.dialogParent.querySelector('.btns').children);
+                btns.forEach((item,index) => {
+                    item.onclick = this.settings['btns'+index].bind(this);
+                })
+            }
+        }
+
+
+        new Dialog({
+            title:"确认要放假吗？",
+            btns:['确认','取消'],
+            btns0(){
+                //点击确认要执行的操作
+                window.location.href = 'http://www.baidu.com'
+            },
+            btns1(){
+                //点击取消要执行的操作
+                document.body.removeChild(this.dialogParent);
+            }
+        })
+        
+        
+
+        class DragDialog extends Dialog{
+            constructor(obj){
+                super(obj); //Dialog 
+                this.drag();
+            }
+            drag(){
+                //实现拖拽
+                this.dialogParent.onmousedown = (e) => {
+                    let {x,y} = {x:e.clientX - this.dialogParent.offsetLeft,y:e.clientY - this.dialogParent.offsetTop};
+                    document.onmousemove = (e) => {
+                        let {left,top} = {left:e.clientX - x,top:e.clientY-y};
+                        this.dialogParent.style.top = top + 'px';
+                        this.dialogParent.style.left = left + 'px';
+                    }
+                }
+                this.dialogParent.onmouseup = ()=>{
+                    document.onmousemove = null;
+                }
+            }
+        }
+
+        new DragDialog({
+            title:"确定可以拖拽吗？",
+            btns:['确认','取消'],
+            btns0(){
+                //点击确认要执行的操作
+                window.location.href = 'http://www.baidu.com'
+            },
+            btns1(){
+                //点击取消要执行的操作
+                document.body.removeChild(this.dialogParent);
+            }
+        })
+
+
+
+        // function A(name,age){
+        //     this.name = name;
+        //     this.age = age;
+        // }
+        // A.prototype.sayName = function(){
+        //     alert(this.name);
+        // }
+
+
+        // function B(){
+        //     A.apply(this,arguments); //
+        // }
+        // B.prototype = Object.create(A.prototype);
+        // B.prototype.constructor = B;
+        // B.prototype.sayAge = function(){
+        //     alert(this.age);
+        // }
+        // new A('zs',13).sayName();
+
+        // new B('ww',15).sayAge();
+        
+    </script>
+</body>
+</html>

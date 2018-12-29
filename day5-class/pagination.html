@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding:0;
+            margin: 0;
+            list-style: none;
+        }
+        .content{
+            width: 100%;
+            height: 500px;
+        }
+        .pagebox{
+            text-align: center;
+        }
+        .pagebox span,.pagebox div,.pagebox select{
+            display: inline-block;
+            vertical-align: top;
+        }
+        .pagebox span{
+            padding: 5px 15px;
+            border:1px solid #000;
+            cursor:pointer;
+            user-select: none;
+        }
+        .pagebtn span.active{
+            background: skyblue;
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="content"></div>
+    <div class="pagebox">
+        <span class="leftbtn"><</span>
+        <select></select>
+        <div class="pagebtn">
+
+        </div>
+        <span class="rightbtn">></span>
+    </div>
+    <script src="./data.js"></script>
+    <script>
+        
+        
+        class Pagination{
+            constructor(settings){
+                this.el = Pagination.getDom(settings.el);
+                this.select = Pagination.getDom('select',this.el);//下拉框
+                this.pageBtn = Pagination.getDom('.pagebtn',this.el);//按钮
+                this.nextBtn = Pagination.getDom('.rightbtn',this.el);//下一页
+                this.prevBtn = Pagination.getDom('.leftbtn',this.el);//下一页
+                this.data = settings.data; //数据
+                this.pageContent = settings.pageContent; //下拉框的数组
+                this.cb2 = settings.cb2;
+                this.init();
+            }
+            static getDom(str,parent=document){
+                return typeof str === 'string' ? parent.querySelector(str) : str;
+            }
+            init(){
+                this.limit = this.pageContent[0]; //每页多少条
+                this.pagenum = 0; //当前页码
+                this.renderSelect(); //渲染下拉框
+                this.renderPagebtn();  //渲染分页按钮
+                this.getPageDate(); //获取第一页的数据
+                this.addEvent();
+            }
+            addEvent(){
+                //下拉框发生改变
+                this.select.onchange = () => {
+                    this.limit = this.select.value*1;
+                    this.pagenum = 0; //下拉框发生变化回到第一页
+                    this.renderPagebtn();
+                    this.getPageDate();
+                }
+                //点击页码按钮
+                this.pageBtn.onclick = (e) => {
+                    let tag = e.target;
+                    if(tag.tagName === 'SPAN'){
+                        this.pagenum = tag.innerText - 1;
+                        this.getPageDate();
+                    }
+                }
+                //上一页
+                this.prevBtn.onclick = () => {
+                    this.pagenum--;
+                    this.pagenum  = this.pagenum <= 0 ? 0 : this.pagenum;
+                    this.getPageDate(); 
+                }
+                //上一页
+                this.nextBtn.onclick = () => {
+                    this.pagenum++;
+                    // console.log(this.size);
+                    this.pagenum  = this.pagenum >= this.size - 1 ? this.size - 1 : this.pagenum;
+                    this.getPageDate(); 
+                }
+            }
+            renderSelect(){
+                this.select.innerHTML = this.pageContent.map(item=> `<option value="${item}">${item}条/页</option>`).join('');
+            }
+            renderPagebtn(){
+                let size = this.size = Math.ceil(this.data.length / this.limit);
+                this.pageBtn.innerHTML = '';
+                for(let i=1;i<=size;i++){
+                    let btn = document.createElement('span');
+                    btn.innerHTML = i;
+                    this.pageBtn.append(btn);
+                }
+            }
+            getPageDate(){
+                let startindex = this.pagenum * this.limit;
+                let endindex = startindex + this.limit;
+                Array.from(this.pageBtn.children).forEach((el,index)=>{
+                    if(index === this.pagenum){
+                        el.classList.add('active')
+                    }else{
+                        el.classList.remove('active')
+                    }
+                })
+                this.cb2(this.data.slice(startindex,endindex));
+            }
+        }
+        // Pagination.getDom();
+        new Pagination({
+            el:'.pagebox',
+            data,
+            pageContent:[2,4,6,8,10],
+            cb1(){
+
+            },//当select下拉框的值发生改变触发的函数
+            cb2(data){
+                Pagination.getDom('.content').innerHTML = data.map(item=>`<p data-id="${item.id}">${item.title}</p>`).join('');
+            }//获取当前页数据
+        })
+        
+    </script>
+</body>
+</html>

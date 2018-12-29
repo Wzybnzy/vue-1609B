@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // async function f() {
+        //     try {
+        //         await Promise.reject('出错了');
+        //     } catch(e) {
+        //         console.log(111);
+        //         console.log(e+"内部")
+        //     }
+        //     console.log(222);
+        //     return await Promise.resolve('hello world');
+        // }
+        // f().then(v => console.log(v+222)).catch(e => console.log(e+"外部"))
+
+
+        async function f() {
+            await Promise.resolve("bawei")
+            await Promise.reject("shixun")
+            return 'hello world';
+        }
+        f().then(v => console.log(v)).catch(v=>console.log(v));
+    </script>
+</body>
+</html>

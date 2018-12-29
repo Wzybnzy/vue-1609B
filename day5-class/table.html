@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .active{
+            border:3px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="title"></div>
+        <div class="content"></div>
+    </div>
+    
+    <script>
+        
+
+        // function Table(obj){
+        //     this.settings = obj;
+        //     this.init();
+        // }
+        // Table.prototype = {
+        //     constructor:Table,
+        //     init:function(){
+
+        //     }
+        // }
+        
+        class Table{
+            constructor(obj){
+                this.parentNode = this.getDom(obj.parent);
+                this.titelNode = this.getDom('.title',this.parentNode);
+                this.contNode = this.getDom('.content',this.parentNode)
+                this.data = obj.data;
+                this.init();
+            }
+            init(){
+                this.createNav();
+            }
+            createNav(){
+                // console.log(this)
+                Object.keys(this.data).forEach((item,index) => {
+                    let navbtn = this.createElement('button',{
+                        style:{
+                            width:'200px',
+                            height:'50px',
+                            background:'blue',
+                            color:"#fff"
+                        },
+                        class:"button"
+                    },item);
+                    this.titelNode.append(navbtn);
+                    navbtn.onclick = () => {
+                        let btns = Array.from(this.titelNode.children);
+                        btns.forEach(item=>{
+                            item.classList.remove('active');
+                        })
+                        navbtn.classList.add('active');
+                        this.changeContent(navbtn.innerText);
+                    }
+                    if(index === 0 ){
+                        navbtn.onclick();
+                    }
+                })
+            }
+            changeContent(key){
+                this.contNode.innerHTML = this.data[key].map(text=>`<p>${text.text}</p>`).join('');
+            }
+            createElement(tagName,props,text='hello'){
+                let tag = document.createElement(tagName);
+                Object.entries(props).forEach(item=>{
+                    if(typeof item[1] === 'object'){
+                        tag.setAttribute(item[0],Object.entries(item[1]).map(attr => `${attr[0]}:${attr[1]}`).join(';'));
+                    }else{
+                        tag.setAttribute(item[0],item[1]);
+                    }
+                });
+                tag.innerText = text;
+                return tag;
+            }
+            getDom(target,parent=document){
+                return typeof target === 'string' ? parent.querySelector(target) : target;
+            }
+        }
+        
+        let tableobj = new Table({
+            parent:document.querySelector('.wrap'),
+            data:{
+                "btn1":[{
+                    text:"今日头条1"
+                },{
+                    text:"今日头条2"
+                }],
+                "btn2":[{
+                    text:"今日头条2"
+                },{
+                    text:"今日头条3"
+                }],
+                "btn3":[{
+                    text:"今日头条3"
+                },{
+                    text:"今日头条4"
+                }]
+            }
+        });
+        console.log(tableobj);
+
+       //1.不会提升
+       //2.不能重名
+       //3.声明的是构造函数必须使用new关键字来调用
+    
+        
+
+        // let btn = document.querySelector('')
+    //    let obj = {
+    //        a(){
+    //           document.onkeyup = function(){
+    //               console.log(this);
+    //           } 
+    //           console.log(this);
+    //           document.onkeydown = () => {
+    //             console.log(this)
+    //           }
+    //        }
+    //    }
+
+    //    obj.a();
+    </script>
+</body>
+</html>
