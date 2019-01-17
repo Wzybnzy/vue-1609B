@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <my v-if="open"></my-div>
+        <my-dl></my-dl>
+    </div>
+    <div id="wrap">
+        <my-div></my-div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // Vue.component('my-div',{
+        //     template:`
+        //         <div class="my">1609B
+        //                 <button @click="number++">加</button>
+        //                 {{number}}
+        //             </div>
+        //     `,
+        //     data(){
+        //        return {
+        //           number:1 
+        //        }
+        //     }
+        // })
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                title:"hello",
+                open:true
+            },
+            components:{
+                'my-div':{
+                    template:`<div @click="console">{{title}}
+                            <my-p></my-p>
+                        </div>`,
+                    data(){
+                        return{
+                           title:"1609B" 
+                        }
+                    },
+                    methods:{
+                        console(){
+                            alert(this.title);
+                        }
+                    },
+                    components:{
+                        'my-p':{
+                            template:`<p>hello</p>`
+                        }
+                    }
+                },
+                myDl:{
+                    template:`<dl><dt>{{title}}</dt><dd>{{text}}</dd></dl>`,
+                    data(){
+                        return {
+                            title:"今日头条",
+                            text:"今日头条内容"
+                        }
+                    }
+                }
+            }
+        })
+        // let vm1 = new Vue({
+        //     el:"#wrap"
+        // })
+        
+      
+    
+    </script>
+</body>
+</html>

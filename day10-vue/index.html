@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="val in list">
+                <h2 @click="val.open = !val.open">{{val.title}} <b>{{val.sum}}</b></h2>
+                <div v-show="val.open">
+                    <dl v-for="v in val.cont">
+                        <dt>{{v.date}}</dt>
+                        <dd v-for="value in v.list">
+                            <p>{{value.title}}</p><b>{{value.price}}</b>
+                        </dd>
+                    </dl>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="./data/data.js"></script>
+    <script>
+    
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                list:data.data
+            },
+            // beforeCreate(){
+            //     console.log(this.list)
+            //     console.log('beforeCreate')
+            // },
+            created(){
+                // console.log(this.list);
+                this.list.forEach(item => {
+                    item.sum = item.cont.map(val=>val.list.reduce((prev,next)=>prev.price+next.price)).reduce((a,b)=>a+b);
+                    // item.open = false;
+                    this.$set(item,'open',false);
+                });
+            },
+            // beforeMount(){ //vue dom
+            //     console.log(document.querySelector('li'));
+            //     console.log('beforeMount');
+            // },
+            // mounted(){
+            //     console.log(document.querySelector('li'))
+            //     console.log('mounted');
+            //     this.list.push({
+            //         title:"aaaa"
+            //     })
+            // },
+            // beforeUpdate(){
+            //     console.log(document.querySelectorAll('li')[3]);
+            //     console.log('beforeUpdate');
+            // },
+            // updated(){
+            //     console.log(document.querySelectorAll('li')[3]);
+            //     console.log('updated');
+            // }
+        })
+        // vm.$mount('#app');
+
+        // function Vue(options){
+        //     this.data = options.data;
+        //     options.beforeCreate();
+        //     this.
+        // }
+    
+    </script>
+</body>
+</html>

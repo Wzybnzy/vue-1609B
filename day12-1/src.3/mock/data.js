@@ -1,0 +1,25 @@
+export default [{
+    name:'index.html'
+},{
+    name:'.babelrc'
+},{
+    dirname:'src',
+    files:[{
+        name:'App.vue'
+    },{
+        name:'main.js'
+    },{
+        dirname:'mock',
+        files:[{
+            name:'data.js',
+        },{
+            dirname:'js',
+            files:[{
+                dirname:'common',
+                files:[{
+                    name:'dialog.js'
+                }]
+            }]
+        }]
+    }]
+}]

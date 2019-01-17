@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <a href="#/home">首页</a>
+        <a href="#/list">列表</a> -->
+        <router-link to="/home">首页</router-link>
+        <router-link to="/list">列表</router-link>
+        <router-view></router-view>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
+    <script>
+        const router = new VueRouter({
+            routes:[{
+                path:'/home',
+                component:{
+                    template:'<div class="box" style="width:100px;height:100px;background:blue"></div>'
+                }
+            },{
+                path:'/list',
+                component:{
+                    template:`<ul><li v-for="val in list">{{val.title}}</li></ul>`,
+                    data(){
+                        return{
+                            list:[{
+                                title:'列表1'
+                            },{
+                                title:'列表2'
+                            },{
+                                title:'列表3'
+                            }]
+                        }
+                    }
+                }
+            }]
+        })
+        new Vue({
+            el:'#app',
+            router
+        })
+    </script>
+</body>
+</html>

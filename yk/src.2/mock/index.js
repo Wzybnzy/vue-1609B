@@ -1,0 +1,31 @@
+export default[{
+    title:'鸡胗',
+    price:3,
+    image:'img1.jpg',
+    id:1
+},{
+    title:'玉米',
+    price:3,
+    image:'img1.jpg',
+    id:2
+},{
+    title:'红薯',
+    price:6,
+    image:'img1.jpg',
+    id:3
+},{
+    title:'可乐',
+    price:9,
+    image:'img1.jpg',
+    id:4
+},{
+    title:'猪脚',
+    price:66,
+    image:'img1.jpg',
+    id:5
+},{
+    title:'猪肘子',
+    price:88,
+    image:'img1.jpg',
+    id:6
+}]

@@ -1,0 +1,22 @@
+export default[{
+    title:'返回顶部',
+    tip:"返回顶部",
+    name:'-',
+    class:'icon-tubiao-zuojiantou',
+    color:'skyblue',
+    id:0
+},{
+    title:'二维码',
+    tip:"请输入地址",
+    name:'二维码',
+    class:'icon-house-on-wheels',
+    color:'pink',
+    id:1
+},{
+    title:'qq',
+    tip:"-",
+    name:'qq...',
+    class:'icon-hotel',
+    color:'red',
+    id:2
+}]

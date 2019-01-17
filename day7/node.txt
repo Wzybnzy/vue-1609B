@@ -1,0 +1,22 @@
+node  
+
+环境变量
+path -> 快速启动当前应用
+NODE_PATH 查找全局包路径 带node_modules
+path 全局包下载路径 不带node_modules
+
+npm
+prefix 全局下载地址
+cache  缓存地址
+registry 下载源地址
+
+npm config set prefix 全局下载本地文件路径
+npm config set cache 全局缓存本地文件路径
+
+http://registry.npmjs.org/  服务器在国外
+npm config set registry http://registry.npm.taobao.org/ 服务器在国内
+
+npm config list
+
+npm config get prefix
+

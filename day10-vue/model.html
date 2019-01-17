@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        p[v-cloak]{
+            display: none;
+        }
+    
+    
+    </style>
+</head>
+<body>
+    <div id="app">
+        <form>
+            <input type="text" placeholder="请输入姓名" v-model.lazy="username">
+            <input type="text" placeholder="请输入密码" v-model.number.trim="pwd">
+            <!-- <input type="checkbox" v-model="open"> -->
+            <button @click.prevent="login">登陆</button>
+        </form>
+        <ul>
+            <li v-for="(val,index) in list">
+                <input type="checkbox" @click="oneCheck(index)" :checked="val.open">
+                {{val.title}}
+            </li>
+        </ul>
+        <input type="checkbox" :checked="allopen" @click="allCheck"> 全选
+
+        <select v-model="val">
+            <option value="0" disabled selected>请选择</option>
+            <option value="1111">111</option>
+            <option value="2222">222</option>
+        </select>
+
+        <p v-once>{{text}}</p>
+
+        <dialog open>12121221</dialog>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data:{
+                username:"",
+                pwd:"",
+                allopen:false,
+                val:'请选择',
+                text:"hello",
+                list:[{
+                    title:"111",
+                    open:false
+                },{
+                    title:"222",
+                    open:false
+                }]
+            },
+            methods:{
+                login(){
+                    console.log('username='+this.username+'&pwd='+this.pwd);
+                    this.text = '121212';
+                },
+                oneCheck(i){
+                    // console.log(i);
+                    this.list[i].open = !this.list[i].open;
+                    this.allopen = this.list.every(item=>item.open); 
+                },
+                allCheck(){
+                    this.allopen = !this.allopen;
+                    this.list.forEach(item=>{
+                        item.open = this.allopen;
+                    })
+                }
+            }
+        })
+    
+    </script>
+</body>
+</html>

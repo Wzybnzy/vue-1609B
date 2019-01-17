@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{address}}</p>
+        <input type="text" v-model="text"> <button @click="url = text">提交</button>
+        <p>{{url}}</p>
+        <!-- {{geturl()}} -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+    
+        new Vue({
+            el:"#app",
+            data:{
+                name:"王冰",
+                area:"海淀区",
+                info:"西二旗八维",
+                urlname:"baidu",
+                text:'',
+                urlstr:"http://www.baidu.com"
+            },
+            computed:{
+                // address(){  //getter
+                //     return this.name+this.area+this.info;
+                // },
+                address:{
+                    get(){
+                        return this.name+this.area+this.info;
+                    }
+                },
+                url:{
+                    get(){
+                        return this.urlname +' '+this.urlstr;
+                    },
+                    set(val){
+                        this.urlname = val.split(' ')[0];
+                        this.urlstr = val.split(' ')[1];
+                    }
+                }
+            }
+            // methods:{
+            //     geturl(){
+            //         return this.urlname+' '+this.urlstr
+            //     }
+            // }
+        })
+
+
+        let obj = {
+            name:"zs"
+        }
+        Object.defineProperty(obj,'name',{
+            get(){
+                return '王冰'
+            },
+            set(val){
+                console.log(val);
+            }
+        })
+
+        console.log(obj.name);
+
+        obj.name = 'zs';
+    </script>
+    
+</body>
+</html>

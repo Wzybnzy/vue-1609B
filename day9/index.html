@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .dialog{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h2 v-html="classname+name"></h2>
+        <div class="dialog" v-show="open"></div>
+        <button @click="dialogFun"></button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                open:false,
+                classname:"<b>1609B</b>",
+                name:"王冰",
+                text:"开"
+            },
+            methods:{
+                dialogFun(){
+                    this.open=!this.open;
+                    this.text = this.open?"关"
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>
